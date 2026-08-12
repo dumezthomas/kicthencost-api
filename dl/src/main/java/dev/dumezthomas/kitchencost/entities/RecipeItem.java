@@ -3,7 +3,6 @@ package dev.dumezthomas.kitchencost.entities;
 import dev.dumezthomas.kitchencost.enums.Unit;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Positive;
-import jakarta.validation.constraints.PositiveOrZero;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,21 +12,25 @@ import java.math.BigDecimal;
 
 @Entity
 @Table(indexes = {
-        @Index(name = "idx_invoice_item_invoice", columnList = "invoice_id")
+        @Index(name = "idx_recipe_item_recipe", columnList = "recipe_id")
 })
 @NoArgsConstructor
 @ToString(callSuper = true)
 @Getter
 @Setter
-public class InvoiceItem extends BaseEntity {
+public class RecipeItem extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "invoice_id", nullable = false)
-    private Invoice invoice;
+    @JoinColumn(name = "recipe_id", nullable = false)
+    private Recipe recipe;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "ingredient_id", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ingredient_id")
     private Ingredient ingredient;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "sub_recipe_id")
+    private Recipe subRecipe;
 
     @Positive
     @Column(nullable = false, precision = 10, scale = 4)
@@ -36,8 +39,4 @@ public class InvoiceItem extends BaseEntity {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 20)
     private Unit unit;
-
-    @PositiveOrZero
-    @Column(nullable = false, precision = 10, scale = 4)
-    private BigDecimal totalPrice;
 }

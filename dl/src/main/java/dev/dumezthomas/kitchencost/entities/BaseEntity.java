@@ -1,9 +1,6 @@
 package dev.dumezthomas.kitchencost.entities;
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.MappedSuperclass;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -23,9 +20,11 @@ public abstract class BaseEntity {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
+    @Column(nullable = false, updatable = false)
     @CreationTimestamp
     private Instant createdAt;
 
+    @Column(nullable = false)
     @UpdateTimestamp
     private Instant updatedAt;
 }
