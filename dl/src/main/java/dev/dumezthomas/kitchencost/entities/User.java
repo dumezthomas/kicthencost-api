@@ -1,10 +1,7 @@
 package dev.dumezthomas.kitchencost.entities;
 
 import dev.dumezthomas.kitchencost.enums.UserRole;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
@@ -13,6 +10,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Entity
+@Table(name = "user_")
 @NoArgsConstructor
 @ToString(callSuper = true)
 @Getter

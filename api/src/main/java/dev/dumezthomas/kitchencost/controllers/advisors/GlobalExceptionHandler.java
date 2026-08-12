@@ -2,6 +2,7 @@ package dev.dumezthomas.kitchencost.controllers.advisors;
 
 import dev.dumezthomas.kitchencost.exceptions.KitchencostApiException;
 import dev.dumezthomas.kitchencost.models.error.responses.ErrorResponse;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -14,11 +15,14 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 @RestControllerAdvice
+@Slf4j
 public class GlobalExceptionHandler {
 
     @ExceptionHandler({KitchencostApiException.class})
     public ResponseEntity<ErrorResponse> handleCustomException(KitchencostApiException e) {
 
+        log.warn(e.getMessage());
+        
         ErrorResponse errorResponse = ErrorResponse.fromException(e);
 
         return ResponseEntity
@@ -54,7 +58,11 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<ErrorResponse> handleUnexpectedException() {
+    public ResponseEntity<ErrorResponse> handleUnexpectedException(
+            Exception e
+    ) {
+
+        log.error("Unexpected exception", e);
 
         ErrorResponse errorResponse = new ErrorResponse(
                 HttpStatus.INTERNAL_SERVER_ERROR,
