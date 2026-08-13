@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 public class DatabaseSeeder implements CommandLineRunner {
 
     private final RestaurantSeeder restaurantSeeder;
+    private final IngredientSeeder ingredientSeeder;
 
     @Override
     public void run(String... args) {
@@ -18,6 +19,7 @@ public class DatabaseSeeder implements CommandLineRunner {
         log.info("Seeding database...");
 
         restaurantSeeder.seed();
+        ingredientSeeder.seed();
 
         log.info("Database seeded.");
     }

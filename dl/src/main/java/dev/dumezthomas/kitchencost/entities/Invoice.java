@@ -1,9 +1,6 @@
 package dev.dumezthomas.kitchencost.entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Index;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,9 +10,13 @@ import lombok.ToString;
 import java.time.LocalDate;
 
 @Entity
-@Table(indexes = {
-        @Index(name = "idx_invoice_restaurant", columnList = "restaurant_id")
-})
+@Table(
+        indexes = {
+                @Index(name = "idx_invoice_restaurant", columnList = "restaurant_id")
+        },
+        uniqueConstraints = {
+                @UniqueConstraint(columnNames = {"supplierName", "invoiceNumber"})
+        })
 @NoArgsConstructor
 @ToString(callSuper = true)
 @Getter

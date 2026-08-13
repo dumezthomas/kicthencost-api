@@ -23,9 +23,9 @@ public class RestaurantSeeder {
             return;
         }
 
-        restaurantRepository.saveAll(List.of(
+        List<Restaurant> restaurants = List.of(
 
-                createRestaurant(
+                new Restaurant(
                         "Le Petit Chef",
                         "Traditional French cuisine.",
                         CuisineType.FRENCH,
@@ -34,7 +34,7 @@ public class RestaurantSeeder {
                         BigDecimal.valueOf(40)
                 ),
 
-                createRestaurant(
+                new Restaurant(
                         "Bella Napoli",
                         "Authentic Italian cuisine.",
                         CuisineType.ITALIAN,
@@ -43,7 +43,7 @@ public class RestaurantSeeder {
                         BigDecimal.valueOf(38)
                 ),
 
-                createRestaurant(
+                new Restaurant(
                         "Sakura",
                         "Traditional Japanese cuisine.",
                         CuisineType.JAPANESE,
@@ -51,29 +51,10 @@ public class RestaurantSeeder {
                         BigDecimal.valueOf(37),
                         BigDecimal.valueOf(42)
                 )
-        ));
+        );
 
-        log.info("Seeded {} restaurants.", restaurantRepository.count());
-    }
+        restaurantRepository.saveAll(restaurants);
 
-    private Restaurant createRestaurant(
-            String name,
-            String description,
-            CuisineType cuisineType,
-            BigDecimal targetFoodCostPercentage,
-            BigDecimal warningFoodCostPercentage,
-            BigDecimal criticalFoodCostPercentage
-    ) {
-
-        Restaurant restaurant = new Restaurant();
-
-        restaurant.setName(name);
-        restaurant.setDescription(description);
-        restaurant.setCuisineType(cuisineType);
-        restaurant.setTargetFoodCostPercentage(targetFoodCostPercentage);
-        restaurant.setWarningFoodCostPercentage(warningFoodCostPercentage);
-        restaurant.setCriticalFoodCostPercentage(criticalFoodCostPercentage);
-
-        return restaurant;
+        log.info("Seeded {} restaurants.", restaurants.size());
     }
 }

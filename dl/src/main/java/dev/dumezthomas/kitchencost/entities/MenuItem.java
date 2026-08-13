@@ -12,9 +12,14 @@ import lombok.ToString;
 import java.math.BigDecimal;
 
 @Entity
-@Table(indexes = {
-        @Index(name = "idx_menu_item_restaurant", columnList = "restaurant_id")
-})
+@Table(
+        indexes = {
+                @Index(name = "idx_menu_item_restaurant", columnList = "restaurant_id")
+        },
+        uniqueConstraints = {
+                @UniqueConstraint(columnNames = {"restaurant_id", "name"})
+        }
+)
 @NoArgsConstructor
 @ToString(callSuper = true)
 @Getter

@@ -21,7 +21,7 @@ public class RestaurantController {
     @GetMapping
     public ResponseEntity<List<RestaurantIndexResponse>> findAll() {
 
-        List<Restaurant> restaurants = restaurantService.findAll();
+        List<Restaurant> restaurants = restaurantService.getAll();
 
         List<RestaurantIndexResponse> responses = restaurants.stream()
                 .map(RestaurantIndexResponse::fromRestaurant)

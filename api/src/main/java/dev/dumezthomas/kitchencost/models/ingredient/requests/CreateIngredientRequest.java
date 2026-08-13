@@ -1,5 +1,45 @@
 package dev.dumezthomas.kitchencost.models.ingredient.requests;
 
-public record CreateIngredientRequest() {
+import dev.dumezthomas.kitchencost.entities.Ingredient;
+import dev.dumezthomas.kitchencost.enums.Allergen;
+import dev.dumezthomas.kitchencost.enums.IngredientCategory;
+import dev.dumezthomas.kitchencost.enums.Unit;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PositiveOrZero;
+import jakarta.validation.constraints.Size;
 
+import java.math.BigDecimal;
+import java.util.Set;
+
+public record CreateIngredientRequest(
+
+        @NotBlank
+        @Size(max = 100)
+        String name,
+
+        @NotNull
+        IngredientCategory ingredientCategory,
+
+        @NotNull
+        Set<Allergen> allergens,
+
+        @NotNull
+        Unit defaultUnit,
+
+        @NotNull
+        @PositiveOrZero
+        BigDecimal currentPriceByDefaultUnit
+) {
+
+    public Ingredient toIngredient() {
+
+        return new Ingredient(
+                name,
+                ingredientCategory,
+                allergens,
+                defaultUnit,
+                currentPriceByDefaultUnit
+        );
+    }
 }

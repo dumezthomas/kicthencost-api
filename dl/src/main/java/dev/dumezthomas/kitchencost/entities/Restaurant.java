@@ -44,4 +44,21 @@ public class Restaurant extends BaseEntity {
     @Positive
     @Column(nullable = false, precision = 5, scale = 2)
     private BigDecimal criticalFoodCostPercentage = BigDecimal.valueOf(40);
+
+    public Restaurant(
+            String name,
+            String description,
+            CuisineType cuisineType,
+            BigDecimal targetFoodCostPercentage,
+            BigDecimal warningFoodCostPercentage,
+            BigDecimal criticalFoodCostPercentage
+    ) {
+
+        this.name = name;
+        this.description = description;
+        this.cuisineType = cuisineType;
+        this.targetFoodCostPercentage = targetFoodCostPercentage;
+        this.warningFoodCostPercentage = warningFoodCostPercentage;
+        this.criticalFoodCostPercentage = criticalFoodCostPercentage;
+    }
 }
