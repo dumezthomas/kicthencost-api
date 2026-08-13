@@ -32,6 +32,4 @@ public class RestaurantServiceImpl implements RestaurantService {
                         restaurantId
                 ));
     }
-
-
 }

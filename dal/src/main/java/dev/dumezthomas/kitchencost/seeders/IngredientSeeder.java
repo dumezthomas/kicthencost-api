@@ -1,4 +1,4 @@
-package dev.dumezthomas.kitchencost.seeds;
+package dev.dumezthomas.kitchencost.seeders;
 
 import dev.dumezthomas.kitchencost.entities.Ingredient;
 import dev.dumezthomas.kitchencost.entities.Restaurant;
@@ -41,7 +41,7 @@ public class IngredientSeeder {
 
                 new Ingredient(
                         "Sugar",
-                        IngredientCategory.BAKERY,
+                        IngredientCategory.SWEETENER,
                         Set.of(),
                         Unit.KG,
                         BigDecimal.valueOf(1.60)

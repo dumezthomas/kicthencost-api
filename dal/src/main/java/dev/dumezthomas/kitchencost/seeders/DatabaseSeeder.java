@@ -1,4 +1,4 @@
-package dev.dumezthomas.kitchencost.seeds;
+package dev.dumezthomas.kitchencost.seeders;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -12,6 +12,7 @@ public class DatabaseSeeder implements CommandLineRunner {
 
     private final RestaurantSeeder restaurantSeeder;
     private final IngredientSeeder ingredientSeeder;
+    private final RecipeSeeder recipeSeeder;
 
     @Override
     public void run(String... args) {
@@ -20,6 +21,7 @@ public class DatabaseSeeder implements CommandLineRunner {
 
         restaurantSeeder.seed();
         ingredientSeeder.seed();
+        recipeSeeder.seed();
 
         log.info("Database seeded.");
     }

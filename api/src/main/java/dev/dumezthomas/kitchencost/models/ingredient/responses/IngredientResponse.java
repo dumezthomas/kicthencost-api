@@ -18,7 +18,6 @@ public record IngredientResponse(
         Unit defaultUnit,
         BigDecimal currentPriceByDefaultUnit,
         boolean archived
-
 ) {
 
     public static IngredientResponse fromIngredient(Ingredient i) {

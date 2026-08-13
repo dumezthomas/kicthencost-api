@@ -1,11 +1,11 @@
 package dev.dumezthomas.kitchencost.controllers.v1;
 
-import dev.dumezthomas.kitchencost.entities.Ingredient;
-import dev.dumezthomas.kitchencost.models.ingredient.requests.CreateIngredientRequest;
-import dev.dumezthomas.kitchencost.models.ingredient.requests.UpdateIngredientRequest;
-import dev.dumezthomas.kitchencost.models.ingredient.responses.IngredientIndexResponse;
-import dev.dumezthomas.kitchencost.models.ingredient.responses.IngredientResponse;
-import dev.dumezthomas.kitchencost.services.IngredientService;
+import dev.dumezthomas.kitchencost.entities.Recipe;
+import dev.dumezthomas.kitchencost.models.recipe.requests.CreateRecipeRequest;
+import dev.dumezthomas.kitchencost.models.recipe.requests.UpdateRecipeRequest;
+import dev.dumezthomas.kitchencost.models.recipe.responses.RecipeIndexResponse;
+import dev.dumezthomas.kitchencost.models.recipe.responses.RecipeResponse;
+import dev.dumezthomas.kitchencost.services.RecipeService;
 import dev.dumezthomas.kitchencost.services.RestaurantService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -18,45 +18,45 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/api/v1/ingredients")
+@RequestMapping("/api/v1/recipes")
 @RequiredArgsConstructor
-public class IngredientController {
+public class RecipeController {
 
     // TODO to delete
     private final RestaurantService restaurantService;
 
-    private final IngredientService ingredientService;
+    private final RecipeService recipeService;
 
     @GetMapping
-    public ResponseEntity<List<IngredientIndexResponse>> getAll() {
+    public ResponseEntity<List<RecipeIndexResponse>> getAll() {
 
-        List<Ingredient> ingredients = ingredientService.getAll(getRestaurantId());
+        List<Recipe> recipes = recipeService.getAll(getRestaurantId());
 
-        List<IngredientIndexResponse> responses = ingredients.stream()
-                .map(IngredientIndexResponse::fromIngredient)
+        List<RecipeIndexResponse> responses = recipes.stream()
+                .map(RecipeIndexResponse::fromRecipe)
                 .toList();
 
         return ResponseEntity.ok(responses);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<IngredientResponse> getById(
-            @PathVariable("id") UUID ingredientId
+    public ResponseEntity<RecipeResponse> getById(
+            @PathVariable("id") UUID recipeId
     ) {
 
-        Ingredient ingredient = ingredientService.getById(getRestaurantId(), ingredientId);
+        Recipe recipe = recipeService.getById(getRestaurantId(), recipeId);
 
-        IngredientResponse response = IngredientResponse.fromIngredient(ingredient);
+        RecipeResponse response = RecipeResponse.fromRecipe(recipe);
 
         return ResponseEntity.ok(response);
     }
 
     @PostMapping
     public ResponseEntity<Void> create(
-            @Valid @RequestBody CreateIngredientRequest request
+            @Valid @RequestBody CreateRecipeRequest request
     ) {
 
-        UUID id = ingredientService.create(getRestaurantId(), request.toIngredient());
+        UUID id = recipeService.create(getRestaurantId(), request.toRecipe());
 
         URI uri = ServletUriComponentsBuilder
                 .fromCurrentRequest()
@@ -69,31 +69,31 @@ public class IngredientController {
 
     @PutMapping("/{id}")
     public ResponseEntity<Void> update(
-            @PathVariable("id") UUID ingredientId,
-            @Valid @RequestBody UpdateIngredientRequest request
+            @PathVariable("id") UUID recipeId,
+            @Valid @RequestBody UpdateRecipeRequest request
     ) {
 
-        ingredientService.update(getRestaurantId(), ingredientId, request.toIngredient());
+        recipeService.update(getRestaurantId(), recipeId, request.toRecipe());
 
         return ResponseEntity.noContent().build();
     }
 
     @PatchMapping("/{id}/archive")
     public ResponseEntity<Void> archive(
-            @PathVariable("id") UUID ingredientId
+            @PathVariable("id") UUID recipeId
     ) {
 
-        ingredientService.archive(getRestaurantId(), ingredientId);
+        recipeService.archive(getRestaurantId(), recipeId);
 
         return ResponseEntity.noContent().build();
     }
 
     @PatchMapping("/{id}/restore")
     public ResponseEntity<Void> restore(
-            @PathVariable("id") UUID ingredientId
+            @PathVariable("id") UUID recipeId
     ) {
 
-        ingredientService.restore(getRestaurantId(), ingredientId);
+        recipeService.restore(getRestaurantId(), recipeId);
 
         return ResponseEntity.noContent().build();
     }

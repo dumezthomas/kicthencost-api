@@ -83,7 +83,9 @@ public class IngredientServiceImpl implements IngredientService {
 
         Ingredient ingredient = getById(restaurantId, ingredientId);
 
-        ingredient.setArchived(true);
+        if (!ingredient.isArchived()) {
+            ingredient.setArchived(true);
+        }
     }
 
     @Transactional
@@ -92,6 +94,8 @@ public class IngredientServiceImpl implements IngredientService {
 
         Ingredient ingredient = getById(restaurantId, ingredientId);
 
-        ingredient.setArchived(false);
+        if (ingredient.isArchived()) {
+            ingredient.setArchived(false);
+        }
     }
 }

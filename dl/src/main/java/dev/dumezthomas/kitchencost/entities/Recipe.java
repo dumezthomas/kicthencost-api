@@ -23,15 +23,16 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @ToString(callSuper = true)
 @Getter
-@Setter
 public class Recipe extends RestaurantScoped {
 
     @NotBlank
     @Column(nullable = false, length = 100)
+    @Setter
     private String name;
 
     @Positive
     @Column(nullable = false, precision = 10, scale = 4)
+    @Setter
     private BigDecimal yieldQuantity;
 
     @Enumerated(EnumType.STRING)
@@ -39,5 +40,25 @@ public class Recipe extends RestaurantScoped {
     private Unit yieldUnit;
 
     @Column(nullable = false)
+    @Setter
     private boolean archived = false;
+
+    public Recipe(
+            String name,
+            BigDecimal yieldQuantity
+    ) {
+
+        this.name = name;
+        this.yieldQuantity = yieldQuantity;
+    }
+
+    public Recipe(
+            String name,
+            BigDecimal yieldQuantity,
+            Unit yieldUnit
+    ) {
+
+        this(name, yieldQuantity);
+        this.yieldUnit = yieldUnit;
+    }
 }

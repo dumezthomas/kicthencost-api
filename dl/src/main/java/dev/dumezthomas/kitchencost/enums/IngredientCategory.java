@@ -7,29 +7,28 @@ import lombok.Getter;
 @Getter
 public enum IngredientCategory {
 
-    MEAT("set_meal", false, false),
-    POULTRY("set_meal", false, false),
-    FISH("set_meal", false, false),
-    SEAFOOD("set_meal", false, false),
+    MEAT("set_meal", DietType.NONE),
+    POULTRY("set_meal", DietType.NONE),
+    FISH("set_meal", DietType.NONE),
+    SEAFOOD("set_meal", DietType.NONE),
 
-    VEGETABLE("eco", true, true),
-    FRUIT("nutrition", true, true),
-    HERB("eco", true, true),
-    MUSHROOM("eco", true, true),
+    VEGETABLE("eco", DietType.VEGAN),
+    FRUIT("nutrition", DietType.VEGAN),
+    HERB("eco", DietType.VEGAN),
+    MUSHROOM("eco", DietType.VEGAN),
 
-    DAIRY("breakfast_dining", true, false),
-    EGG("egg", true, false),
+    DAIRY("breakfast_dining", DietType.VEGETARIAN),
+    EGG("egg", DietType.VEGETARIAN),
 
-    GRAIN("grain", true, true),
-    BAKERY("bakery_dining", true, true),
+    GRAIN("grain", DietType.VEGAN),
 
-    LEGUME("eco", true, true),
-    NUT("nutrition", true, true),
+    LEGUME("eco", DietType.VEGAN),
+    NUT("nutrition", DietType.VEGAN),
 
-    OIL("oil_barrel", true, true),
-    SPICE("spa", true, true);
+    OIL("oil_barrel", DietType.VEGAN),
+    SPICE("spa", DietType.VEGAN),
+    SWEETENER("cake", DietType.VEGAN);
 
     private final String icon;
-    private final boolean vegetarian;
-    private final boolean vegan;
+    private final DietType dietType;
 }

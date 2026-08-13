@@ -1,4 +1,4 @@
-package dev.dumezthomas.kitchencost.seeds;
+package dev.dumezthomas.kitchencost.seeders;
 
 import dev.dumezthomas.kitchencost.entities.Restaurant;
 import dev.dumezthomas.kitchencost.enums.CuisineType;
