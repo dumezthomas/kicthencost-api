@@ -29,63 +29,33 @@ public class RecipeSeeder {
         List<Recipe> recipes = List.of(
 
                 new Recipe(
-                        "Pizza Dough",
-                        BigDecimal.valueOf(4),
-                        Unit.KG
-                ),
-
-                new Recipe(
                         "Tomato Sauce",
-                        BigDecimal.valueOf(5),
-                        Unit.L
-                ),
-
-                new Recipe(
-                        "Bolognese Sauce",
-                        BigDecimal.valueOf(6),
-                        Unit.L
-                ),
-
-                new Recipe(
-                        "Garlic Butter",
-                        BigDecimal.valueOf(1),
+                        BigDecimal.ONE,
                         Unit.KG
                 ),
 
                 new Recipe(
-                        "Caesar Dressing",
-                        BigDecimal.valueOf(2),
-                        Unit.L
-                ),
-
-                new Recipe(
-                        "Pancake Batter",
-                        BigDecimal.valueOf(3),
-                        Unit.L
-                ),
-
-                new Recipe(
-                        "Mashed Potatoes",
-                        BigDecimal.valueOf(5),
+                        "Béchamel",
+                        BigDecimal.ONE,
                         Unit.KG
                 ),
 
                 new Recipe(
-                        "Vegetable Soup",
-                        BigDecimal.valueOf(8),
-                        Unit.L
+                        "Bolognese",
+                        BigDecimal.ONE,
+                        Unit.KG
                 ),
 
                 new Recipe(
-                        "Burger Patty",
-                        BigDecimal.valueOf(10),
+                        "Lasagna",
+                        BigDecimal.ONE,
                         Unit.PIECE
                 ),
 
                 new Recipe(
-                        "Falafel",
-                        BigDecimal.valueOf(24),
-                        Unit.PIECE
+                        "Vinaigrette",
+                        BigDecimal.valueOf(500),
+                        Unit.ML
                 )
         );
 

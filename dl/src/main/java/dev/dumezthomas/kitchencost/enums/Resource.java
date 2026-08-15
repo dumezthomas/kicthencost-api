@@ -9,6 +9,7 @@ public enum Resource {
     USER("User"),
     INGREDIENT("Ingredient"),
     RECIPE("Recipe"),
+    RECIPE_ITEM("Recipe item"),
     MENU_ITEM("Menu item"),
     INVOICE("Invoice");
 

@@ -60,11 +60,6 @@ public class Ingredient extends RestaurantScoped {
     @Setter
     private boolean archived = false;
 
-    public void setAllergens(Set<Allergen> allergens) {
-
-        this.allergens = new HashSet<>(allergens);
-    }
-
     public Ingredient(
             String name,
             Set<Allergen> allergens,
@@ -87,5 +82,10 @@ public class Ingredient extends RestaurantScoped {
         this(name, allergens, currentPriceByDefaultUnit);
         this.ingredientCategory = ingredientCategory;
         this.defaultUnit = defaultUnit;
+    }
+
+    public void setAllergens(Set<Allergen> allergens) {
+
+        this.allergens = new HashSet<>(allergens);
     }
 }

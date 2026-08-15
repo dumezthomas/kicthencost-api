@@ -10,21 +10,27 @@ public record RecipeIndexResponse(
 
         UUID id,
         String name,
+
         // TODO DietType dietType,
         // TODO Set<Allergen> allergens,
         // TODO BigDecimal totalCost,
+
         BigDecimal yieldQuantity,
         Unit yieldUnit,
+
         boolean archived
 ) {
 
     public static RecipeIndexResponse fromRecipe(Recipe r) {
 
         return new RecipeIndexResponse(
+
                 r.getId(),
                 r.getName(),
+
                 r.getYieldQuantity(),
                 r.getYieldUnit(),
+                
                 r.isArchived()
         );
     }

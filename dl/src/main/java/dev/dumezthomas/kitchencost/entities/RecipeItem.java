@@ -11,9 +11,11 @@ import lombok.ToString;
 import java.math.BigDecimal;
 
 @Entity
-@Table(indexes = {
-        @Index(name = "idx_recipe_item_recipe", columnList = "recipe_id")
-})
+@Table(
+        indexes = {
+                @Index(name = "idx_recipe_item_recipe", columnList = "recipe_id")
+        }
+)
 @NoArgsConstructor
 @ToString(callSuper = true)
 @Getter
@@ -39,4 +41,18 @@ public class RecipeItem extends BaseEntity {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 20)
     private Unit unit;
+
+    public RecipeItem(
+            BigDecimal quantity,
+            Unit unit
+    ) {
+
+        this.quantity = quantity;
+        this.unit = unit;
+    }
+
+    public boolean isIngredient() {
+
+        return ingredient != null;
+    }
 }

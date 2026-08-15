@@ -32,14 +32,6 @@ public class IngredientSeeder {
         List<Ingredient> ingredients = List.of(
 
                 new Ingredient(
-                        "Flour",
-                        IngredientCategory.GRAIN,
-                        Set.of(Allergen.GLUTEN),
-                        Unit.KG,
-                        BigDecimal.valueOf(1.80)
-                ),
-
-                new Ingredient(
                         "Sugar",
                         IngredientCategory.SWEETENER,
                         Set.of(),
@@ -48,7 +40,14 @@ public class IngredientSeeder {
                 ),
 
                 new Ingredient(
+                        "Flour",
+                        IngredientCategory.GRAIN,
+                        Set.of(Allergen.GLUTEN),
+                        Unit.KG,
+                        BigDecimal.valueOf(1.80)
+                ),
 
+                new Ingredient(
                         "Salt",
                         IngredientCategory.SPICE,
                         Set.of(),
@@ -97,6 +96,14 @@ public class IngredientSeeder {
                 ),
 
                 new Ingredient(
+                        "Mozzarella",
+                        IngredientCategory.DAIRY,
+                        Set.of(Allergen.MILK),
+                        Unit.KG,
+                        BigDecimal.valueOf(14.90)
+                ),
+
+                new Ingredient(
                         "Egg",
                         IngredientCategory.EGG,
                         Set.of(Allergen.EGGS),
@@ -105,19 +112,11 @@ public class IngredientSeeder {
                 ),
 
                 new Ingredient(
-                        "Chicken Breast",
-                        IngredientCategory.POULTRY,
+                        "Ground Beef",
+                        IngredientCategory.MEAT,
                         Set.of(),
                         Unit.KG,
-                        BigDecimal.valueOf(14.90)
-                ),
-
-                new Ingredient(
-                        "Salmon",
-                        IngredientCategory.FISH,
-                        Set.of(Allergen.FISH),
-                        Unit.KG,
-                        BigDecimal.valueOf(24.90)
+                        BigDecimal.valueOf(16.90)
                 ),
 
                 new Ingredient(
@@ -145,11 +144,19 @@ public class IngredientSeeder {
                 ),
 
                 new Ingredient(
-                        "Rice",
+                        "Pasta Sheets",
                         IngredientCategory.GRAIN,
+                        Set.of(Allergen.GLUTEN),
+                        Unit.KG,
+                        BigDecimal.valueOf(4.50)
+                ),
+
+                new Ingredient(
+                        "Nutmeg",
+                        IngredientCategory.SPICE,
                         Set.of(),
                         Unit.KG,
-                        BigDecimal.valueOf(2.80)
+                        BigDecimal.valueOf(42.00)
                 )
         );
 

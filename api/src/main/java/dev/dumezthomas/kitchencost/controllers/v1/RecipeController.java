@@ -1,10 +1,12 @@
 package dev.dumezthomas.kitchencost.controllers.v1;
 
 import dev.dumezthomas.kitchencost.entities.Recipe;
+import dev.dumezthomas.kitchencost.entities.RecipeItem;
 import dev.dumezthomas.kitchencost.models.recipe.requests.CreateRecipeRequest;
 import dev.dumezthomas.kitchencost.models.recipe.requests.UpdateRecipeRequest;
 import dev.dumezthomas.kitchencost.models.recipe.responses.RecipeIndexResponse;
 import dev.dumezthomas.kitchencost.models.recipe.responses.RecipeResponse;
+import dev.dumezthomas.kitchencost.services.RecipeItemService;
 import dev.dumezthomas.kitchencost.services.RecipeService;
 import dev.dumezthomas.kitchencost.services.RestaurantService;
 import jakarta.validation.Valid;
@@ -26,6 +28,7 @@ public class RecipeController {
     private final RestaurantService restaurantService;
 
     private final RecipeService recipeService;
+    private final RecipeItemService recipeItemService;
 
     @GetMapping
     public ResponseEntity<List<RecipeIndexResponse>> getAll() {
@@ -39,14 +42,15 @@ public class RecipeController {
         return ResponseEntity.ok(responses);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/{recipeId}")
     public ResponseEntity<RecipeResponse> getById(
-            @PathVariable("id") UUID recipeId
+            @PathVariable UUID recipeId
     ) {
 
         Recipe recipe = recipeService.getById(getRestaurantId(), recipeId);
+        List<RecipeItem> items = recipeItemService.getAll(getRestaurantId(), recipeId);
 
-        RecipeResponse response = RecipeResponse.fromRecipe(recipe);
+        RecipeResponse response = RecipeResponse.fromRecipe(recipe, items);
 
         return ResponseEntity.ok(response);
     }
@@ -56,20 +60,20 @@ public class RecipeController {
             @Valid @RequestBody CreateRecipeRequest request
     ) {
 
-        UUID id = recipeService.create(getRestaurantId(), request.toRecipe());
+        UUID recipeId = recipeService.create(getRestaurantId(), request.toRecipe());
 
         URI uri = ServletUriComponentsBuilder
                 .fromCurrentRequest()
-                .path("/{id}")
-                .buildAndExpand(id)
+                .path("/{recipeId}")
+                .buildAndExpand(recipeId)
                 .toUri();
 
         return ResponseEntity.created(uri).build();
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/{recipeId}")
     public ResponseEntity<Void> update(
-            @PathVariable("id") UUID recipeId,
+            @PathVariable UUID recipeId,
             @Valid @RequestBody UpdateRecipeRequest request
     ) {
 
@@ -78,9 +82,9 @@ public class RecipeController {
         return ResponseEntity.noContent().build();
     }
 
-    @PatchMapping("/{id}/archive")
+    @PatchMapping("/{recipeId}/archive")
     public ResponseEntity<Void> archive(
-            @PathVariable("id") UUID recipeId
+            @PathVariable UUID recipeId
     ) {
 
         recipeService.archive(getRestaurantId(), recipeId);
@@ -88,9 +92,9 @@ public class RecipeController {
         return ResponseEntity.noContent().build();
     }
 
-    @PatchMapping("/{id}/restore")
+    @PatchMapping("/{recipeId}/restore")
     public ResponseEntity<Void> restore(
-            @PathVariable("id") UUID recipeId
+            @PathVariable UUID recipeId
     ) {
 
         recipeService.restore(getRestaurantId(), recipeId);

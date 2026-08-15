@@ -39,9 +39,9 @@ public class IngredientController {
         return ResponseEntity.ok(responses);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/{ingredientId}")
     public ResponseEntity<IngredientResponse> getById(
-            @PathVariable("id") UUID ingredientId
+            @PathVariable UUID ingredientId
     ) {
 
         Ingredient ingredient = ingredientService.getById(getRestaurantId(), ingredientId);
@@ -56,20 +56,20 @@ public class IngredientController {
             @Valid @RequestBody CreateIngredientRequest request
     ) {
 
-        UUID id = ingredientService.create(getRestaurantId(), request.toIngredient());
+        UUID ingredientId = ingredientService.create(getRestaurantId(), request.toIngredient());
 
         URI uri = ServletUriComponentsBuilder
                 .fromCurrentRequest()
-                .path("/{id}")
-                .buildAndExpand(id)
+                .path("/{ingredientId}")
+                .buildAndExpand(ingredientId)
                 .toUri();
 
         return ResponseEntity.created(uri).build();
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/{ingredientId}")
     public ResponseEntity<Void> update(
-            @PathVariable("id") UUID ingredientId,
+            @PathVariable UUID ingredientId,
             @Valid @RequestBody UpdateIngredientRequest request
     ) {
 
@@ -78,9 +78,9 @@ public class IngredientController {
         return ResponseEntity.noContent().build();
     }
 
-    @PatchMapping("/{id}/archive")
+    @PatchMapping("/{ingredientId}/archive")
     public ResponseEntity<Void> archive(
-            @PathVariable("id") UUID ingredientId
+            @PathVariable UUID ingredientId
     ) {
 
         ingredientService.archive(getRestaurantId(), ingredientId);
@@ -88,9 +88,9 @@ public class IngredientController {
         return ResponseEntity.noContent().build();
     }
 
-    @PatchMapping("/{id}/restore")
+    @PatchMapping("/{ingredientId}/restore")
     public ResponseEntity<Void> restore(
-            @PathVariable("id") UUID ingredientId
+            @PathVariable UUID ingredientId
     ) {
 
         ingredientService.restore(getRestaurantId(), ingredientId);
