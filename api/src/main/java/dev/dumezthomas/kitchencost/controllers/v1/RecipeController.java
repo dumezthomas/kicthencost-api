@@ -1,12 +1,11 @@
 package dev.dumezthomas.kitchencost.controllers.v1;
 
+import dev.dumezthomas.kitchencost.assemblers.RecipeAssembler;
 import dev.dumezthomas.kitchencost.entities.Recipe;
-import dev.dumezthomas.kitchencost.entities.RecipeItem;
 import dev.dumezthomas.kitchencost.models.recipe.requests.CreateRecipeRequest;
 import dev.dumezthomas.kitchencost.models.recipe.requests.UpdateRecipeRequest;
 import dev.dumezthomas.kitchencost.models.recipe.responses.RecipeIndexResponse;
 import dev.dumezthomas.kitchencost.models.recipe.responses.RecipeResponse;
-import dev.dumezthomas.kitchencost.services.RecipeItemService;
 import dev.dumezthomas.kitchencost.services.RecipeService;
 import dev.dumezthomas.kitchencost.services.RestaurantService;
 import jakarta.validation.Valid;
@@ -28,16 +27,15 @@ public class RecipeController {
     private final RestaurantService restaurantService;
 
     private final RecipeService recipeService;
-    private final RecipeItemService recipeItemService;
+
+    private final RecipeAssembler recipeAssembler;
 
     @GetMapping
     public ResponseEntity<List<RecipeIndexResponse>> getAll() {
 
         List<Recipe> recipes = recipeService.getAll(getRestaurantId());
 
-        List<RecipeIndexResponse> responses = recipes.stream()
-                .map(RecipeIndexResponse::fromRecipe)
-                .toList();
+        List<RecipeIndexResponse> responses = recipeAssembler.toIndexResponses(recipes);
 
         return ResponseEntity.ok(responses);
     }
@@ -48,9 +46,8 @@ public class RecipeController {
     ) {
 
         Recipe recipe = recipeService.getById(getRestaurantId(), recipeId);
-        List<RecipeItem> items = recipeItemService.getAll(getRestaurantId(), recipeId);
 
-        RecipeResponse response = RecipeResponse.fromRecipe(recipe, items);
+        RecipeResponse response = recipeAssembler.toResponse(recipe);
 
         return ResponseEntity.ok(response);
     }
