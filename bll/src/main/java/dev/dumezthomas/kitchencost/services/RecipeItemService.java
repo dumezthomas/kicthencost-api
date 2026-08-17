@@ -7,6 +7,8 @@ import java.util.UUID;
 
 public interface RecipeItemService {
 
+    List<RecipeItem> getAll(UUID recipeId);
+
     List<RecipeItem> getAll(UUID restaurantId, UUID recipeId);
 
     RecipeItem getById(UUID restaurantId, UUID recipeId, UUID itemId);

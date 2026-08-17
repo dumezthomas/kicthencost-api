@@ -4,13 +4,13 @@ import dev.dumezthomas.kitchencost.entities.Ingredient;
 import dev.dumezthomas.kitchencost.entities.Recipe;
 import dev.dumezthomas.kitchencost.entities.RecipeItem;
 import dev.dumezthomas.kitchencost.enums.Resource;
-import dev.dumezthomas.kitchencost.enums.Unit;
 import dev.dumezthomas.kitchencost.exceptions.InvalidOperationException;
 import dev.dumezthomas.kitchencost.exceptions.ResourceNotFoundException;
 import dev.dumezthomas.kitchencost.repositories.RecipeItemRepository;
 import dev.dumezthomas.kitchencost.services.IngredientService;
 import dev.dumezthomas.kitchencost.services.RecipeItemService;
 import dev.dumezthomas.kitchencost.services.RecipeService;
+import dev.dumezthomas.kitchencost.services.UnitConversionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,7 +26,13 @@ public class RecipeItemServiceImpl implements RecipeItemService {
 
     private final RecipeService recipeService;
     private final IngredientService ingredientService;
+    private final UnitConversionService unitConversionService;
 
+    @Override
+    public List<RecipeItem> getAll(UUID recipeId) {
+
+        return recipeItemRepository.findAllByRecipeId(recipeId);
+    }
 
     @Override
     public List<RecipeItem> getAll(UUID restaurantId, UUID recipeId) {
@@ -60,8 +66,7 @@ public class RecipeItemServiceImpl implements RecipeItemService {
         }
 
         Ingredient ingredient = ingredientService.getById(restaurantId, ingredientId);
-
-        validateUnitCompatibility(recipeItem.getUnit(), ingredient.getDefaultUnit(), "ingredient");
+        unitConversionService.validateCompatibility(recipeItem.getUnit(), ingredient.getDefaultUnit());
 
         recipeItem.setIngredient(ingredient);
         recipeItem.setRecipe(recipe);
@@ -88,8 +93,7 @@ public class RecipeItemServiceImpl implements RecipeItemService {
         }
 
         Recipe subRecipe = recipeService.getById(restaurantId, subRecipeId);
-
-        validateUnitCompatibility(recipeItem.getUnit(), subRecipe.getYieldUnit(), "sub-recipe");
+        unitConversionService.validateCompatibility(recipeItem.getUnit(), subRecipe.getYieldUnit());
 
         recipeItem.setSubRecipe(subRecipe);
         recipeItem.setRecipe(recipe);
@@ -103,14 +107,11 @@ public class RecipeItemServiceImpl implements RecipeItemService {
 
         RecipeItem existing = getById(restaurantId, recipeId, itemId);
 
-        validateUnitCompatibility(
+        unitConversionService.validateCompatibility(
                 recipeItem.getUnit(),
                 existing.isIngredient() ?
                         existing.getIngredient().getDefaultUnit() :
-                        existing.getSubRecipe().getYieldUnit(),
-                existing.isIngredient() ?
-                        "ingredient" :
-                        "sub-recipe"
+                        existing.getSubRecipe().getYieldUnit()
         );
 
         existing.setQuantity(recipeItem.getQuantity());
@@ -124,16 +125,5 @@ public class RecipeItemServiceImpl implements RecipeItemService {
         RecipeItem item = getById(restaurantId, recipeId, itemId);
 
         recipeItemRepository.delete(item);
-    }
-
-    private void validateUnitCompatibility(Unit unit, Unit referenceUnit, String referenceType) {
-
-        if (unit.getType() != referenceUnit.getType()) {
-
-            throw new InvalidOperationException(
-                    String.format("Unit '%s' is not compatible with %s unit '%s'.",
-                            unit, referenceType, referenceUnit)
-            );
-        }
     }
 }
