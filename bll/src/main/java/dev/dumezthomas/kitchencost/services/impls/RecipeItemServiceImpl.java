@@ -35,14 +35,6 @@ public class RecipeItemServiceImpl implements RecipeItemService {
     }
 
     @Override
-    public List<RecipeItem> getAll(UUID restaurantId, UUID recipeId) {
-
-        Recipe recipe = recipeService.getById(restaurantId, recipeId);
-
-        return recipeItemRepository.findAllByRecipeId(recipe.getId());
-    }
-
-    @Override
     public RecipeItem getById(UUID restaurantId, UUID recipeId, UUID itemId) {
 
         Recipe recipe = recipeService.getById(restaurantId, recipeId);

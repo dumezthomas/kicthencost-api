@@ -14,6 +14,9 @@ public record UpdateRecipeRequest(
         @Size(max = 100)
         String name,
 
+        @Size(max = 2000)
+        String instructions,
+
         @NotNull
         @Positive
         BigDecimal yieldQuantity
@@ -23,6 +26,7 @@ public record UpdateRecipeRequest(
 
         return new Recipe(
                 name,
+                instructions,
                 yieldQuantity
         );
     }

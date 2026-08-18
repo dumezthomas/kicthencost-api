@@ -3,11 +3,11 @@ package dev.dumezthomas.kitchencost.assemblers;
 import dev.dumezthomas.kitchencost.entities.RecipeItem;
 import dev.dumezthomas.kitchencost.enums.RecipeItemType;
 import dev.dumezthomas.kitchencost.models.recipeitem.responses.RecipeItemIndexResponse;
-import dev.dumezthomas.kitchencost.services.RecipeCalculationService;
+import dev.dumezthomas.kitchencost.results.RecipeAnalysis;
+import dev.dumezthomas.kitchencost.results.RecipeItemAnalysis;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
 
@@ -15,16 +15,14 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class RecipeItemAssembler {
 
-    private final RecipeCalculationService recipeCalculationService;
-
-    public List<RecipeItemIndexResponse> toIndexResponses(List<RecipeItem> items) {
+    public List<RecipeItemIndexResponse> toIndexResponses(List<RecipeItem> items, RecipeAnalysis analysis) {
 
         return items.stream()
-                .map(this::toIndexResponse)
+                .map(item -> toIndexResponse(item, analysis.itemAnalyses().get(item.getId())))
                 .toList();
     }
 
-    private RecipeItemIndexResponse toIndexResponse(RecipeItem item) {
+    private RecipeItemIndexResponse toIndexResponse(RecipeItem item, RecipeItemAnalysis itemAnalysis) {
 
         RecipeItemType type = item.isIngredient()
                 ? RecipeItemType.INGREDIENT
@@ -38,8 +36,6 @@ public class RecipeItemAssembler {
                 ? item.getIngredient().getName()
                 : item.getSubRecipe().getName();
 
-        BigDecimal totalCost = recipeCalculationService.calculateCost(item);
-
         return new RecipeItemIndexResponse(
                 item.getId(),
                 type,
@@ -47,7 +43,9 @@ public class RecipeItemAssembler {
                 name,
                 item.getQuantity(),
                 item.getUnit(),
-                totalCost
+                itemAnalysis.totalCost(),
+                itemAnalysis.dietType(),
+                itemAnalysis.allergens()
         );
     }
 }

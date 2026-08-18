@@ -30,6 +30,10 @@ public class Recipe extends RestaurantScoped {
     @Setter
     private String name;
 
+    @Column(length = 2000)
+    @Setter
+    private String instructions;
+
     @Positive
     @Column(nullable = false, precision = 10, scale = 4)
     @Setter
@@ -45,20 +49,23 @@ public class Recipe extends RestaurantScoped {
 
     public Recipe(
             String name,
+            String instructions,
             BigDecimal yieldQuantity
     ) {
 
         this.name = name;
+        this.instructions = instructions;
         this.yieldQuantity = yieldQuantity;
     }
 
     public Recipe(
             String name,
+            String instructions,
             BigDecimal yieldQuantity,
             Unit yieldUnit
     ) {
 
-        this(name, yieldQuantity);
+        this(name, instructions, yieldQuantity);
         this.yieldUnit = yieldUnit;
     }
 }

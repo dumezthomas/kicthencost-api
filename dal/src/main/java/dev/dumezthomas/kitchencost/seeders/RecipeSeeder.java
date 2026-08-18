@@ -30,30 +30,35 @@ public class RecipeSeeder {
 
                 new Recipe(
                         "Tomato Sauce",
+                        "Mix all ingredients and simmer for 30 minutes.",
                         BigDecimal.ONE,
                         Unit.KG
                 ),
 
                 new Recipe(
                         "Béchamel",
+                        "Cook the roux, gradually add the milk, then season.",
                         BigDecimal.ONE,
                         Unit.KG
                 ),
 
                 new Recipe(
                         "Bolognese",
+                        "Brown the meat, add vegetables and tomato sauce, then simmer.",
                         BigDecimal.ONE,
                         Unit.KG
                 ),
 
                 new Recipe(
                         "Lasagna",
+                        "Layer the ingredients and bake until golden.",
                         BigDecimal.ONE,
                         Unit.PIECE
                 ),
 
                 new Recipe(
                         "Vinaigrette",
+                        "Whisk all ingredients together until emulsified.",
                         BigDecimal.valueOf(500),
                         Unit.ML
                 )

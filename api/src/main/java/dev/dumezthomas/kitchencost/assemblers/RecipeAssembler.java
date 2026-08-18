@@ -5,12 +5,12 @@ import dev.dumezthomas.kitchencost.entities.RecipeItem;
 import dev.dumezthomas.kitchencost.models.recipe.responses.RecipeIndexResponse;
 import dev.dumezthomas.kitchencost.models.recipe.responses.RecipeResponse;
 import dev.dumezthomas.kitchencost.models.recipeitem.responses.RecipeItemIndexResponse;
-import dev.dumezthomas.kitchencost.services.RecipeCalculationService;
+import dev.dumezthomas.kitchencost.results.RecipeAnalysis;
+import dev.dumezthomas.kitchencost.services.RecipeAnalysisService;
 import dev.dumezthomas.kitchencost.services.RecipeItemService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 @Service
@@ -18,7 +18,7 @@ import java.util.List;
 public class RecipeAssembler {
 
     private final RecipeItemService recipeItemService;
-    private final RecipeCalculationService recipeCalculationService;
+    private final RecipeAnalysisService recipeAnalysisService;
 
     private final RecipeItemAssembler recipeItemAssembler;
 
@@ -26,18 +26,19 @@ public class RecipeAssembler {
 
         List<RecipeItem> items = recipeItemService.getAll(recipe.getId());
 
-        List<RecipeItemIndexResponse> itemResponses = recipeItemAssembler.toIndexResponses(items);
+        RecipeAnalysis analysis = recipeAnalysisService.analyze(recipe);
 
-        BigDecimal totalCost = itemResponses.stream()
-                .map(RecipeItemIndexResponse::totalCost)
-                .reduce(BigDecimal.ZERO, BigDecimal::add);
+        List<RecipeItemIndexResponse> itemResponses = recipeItemAssembler.toIndexResponses(items, analysis);
 
         return new RecipeResponse(
                 recipe.getId(),
                 recipe.getName(),
+                recipe.getInstructions(),
                 recipe.getYieldQuantity(),
                 recipe.getYieldUnit(),
-                totalCost,
+                analysis.totalCost(),
+                analysis.dietType(),
+                analysis.allergens(),
                 itemResponses,
                 recipe.isArchived()
         );
@@ -52,14 +53,16 @@ public class RecipeAssembler {
 
     private RecipeIndexResponse toIndexResponse(Recipe recipe) {
 
-        BigDecimal totalCost = recipeCalculationService.calculateCost(recipe);
+        RecipeAnalysis analysis = recipeAnalysisService.analyze(recipe);
 
         return new RecipeIndexResponse(
                 recipe.getId(),
                 recipe.getName(),
                 recipe.getYieldQuantity(),
                 recipe.getYieldUnit(),
-                totalCost,
+                analysis.totalCost(),
+                analysis.dietType(),
+                analysis.allergens(),
                 recipe.isArchived()
         );
     }

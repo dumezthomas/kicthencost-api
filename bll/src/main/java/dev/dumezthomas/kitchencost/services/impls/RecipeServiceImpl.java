@@ -73,6 +73,7 @@ public class RecipeServiceImpl implements RecipeService {
         }
 
         existing.setName(recipe.getName());
+        existing.setInstructions(recipe.getInstructions());
         existing.setYieldQuantity(recipe.getYieldQuantity());
     }
 

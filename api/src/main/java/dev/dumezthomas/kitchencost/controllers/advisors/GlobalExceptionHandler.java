@@ -22,7 +22,7 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ErrorResponse> handleCustomException(KitchencostApiException e) {
 
         log.warn(e.getMessage());
-        
+
         ErrorResponse errorResponse = ErrorResponse.fromException(e);
 
         return ResponseEntity
@@ -62,7 +62,7 @@ public class GlobalExceptionHandler {
             Exception e
     ) {
 
-        log.error("Unexpected exception", e);
+        log.error(e.getMessage());
 
         ErrorResponse errorResponse = new ErrorResponse(
                 HttpStatus.INTERNAL_SERVER_ERROR,

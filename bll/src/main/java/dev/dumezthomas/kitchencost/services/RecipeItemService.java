@@ -9,8 +9,6 @@ public interface RecipeItemService {
 
     List<RecipeItem> getAll(UUID recipeId);
 
-    List<RecipeItem> getAll(UUID restaurantId, UUID recipeId);
-
     RecipeItem getById(UUID restaurantId, UUID recipeId, UUID itemId);
 
     void createIngredient(UUID restaurantId, UUID recipeId, UUID ingredientId, RecipeItem recipeItem);
