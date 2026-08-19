@@ -98,4 +98,10 @@ public class IngredientServiceImpl implements IngredientService {
             ingredient.setArchived(false);
         }
     }
+
+    @Override
+    public long count(UUID restaurantId) {
+
+        return ingredientRepository.countByRestaurantIdAndArchivedFalse(restaurantId);
+    }
 }

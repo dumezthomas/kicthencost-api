@@ -6,12 +6,16 @@ import dev.dumezthomas.kitchencost.enums.FoodCostStatus;
 import dev.dumezthomas.kitchencost.results.MenuItemAnalysis;
 import dev.dumezthomas.kitchencost.results.RecipeItemAnalysis;
 import dev.dumezthomas.kitchencost.services.MenuItemAnalysisService;
+import dev.dumezthomas.kitchencost.services.MenuItemService;
 import dev.dumezthomas.kitchencost.services.RecipeAnalysisService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.Comparator;
+import java.util.List;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -20,6 +24,7 @@ public class MenuItemAnalysisServiceImpl implements MenuItemAnalysisService {
     private static final BigDecimal PRICE_ROUNDING_STEP = BigDecimal.valueOf(0.50);
 
     private final RecipeAnalysisService recipeAnalysisService;
+    private final MenuItemService menuItemService;
 
     @Override
     public MenuItemAnalysis analyze(MenuItem menuItem) {
@@ -46,6 +51,30 @@ public class MenuItemAnalysisServiceImpl implements MenuItemAnalysisService {
                 .dietType(recipeAnalysis.dietType())
                 .allergens(recipeAnalysis.allergens())
                 .build();
+    }
+
+    @Override
+    public List<MenuItem> getBestFoodCostItems(UUID restaurantId) {
+
+        return getFoodCostItems(restaurantId, true);
+    }
+
+    @Override
+    public List<MenuItem> getWorstFoodCostItems(UUID restaurantId) {
+
+        return getFoodCostItems(restaurantId, false);
+    }
+
+    private List<MenuItem> getFoodCostItems(UUID restaurantId, boolean ascending) {
+
+        Comparator<MenuItem> comparator = Comparator.comparing(
+                menuItem -> analyze(menuItem).foodCostPercentage()
+        );
+
+        return menuItemService.getAll(restaurantId).stream()
+                .sorted(ascending ? comparator : comparator.reversed())
+                .limit(5)
+                .toList();
     }
 
     private BigDecimal calculateFoodCostPercentage(BigDecimal cost, BigDecimal price) {

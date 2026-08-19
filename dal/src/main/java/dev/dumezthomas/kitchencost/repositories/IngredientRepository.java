@@ -14,4 +14,6 @@ public interface IngredientRepository extends JpaRepository<Ingredient, UUID> {
     Optional<Ingredient> findByRestaurantIdAndId(UUID restaurantId, UUID ingredientId);
 
     boolean existsByRestaurantIdAndNameIgnoreCase(UUID restaurantId, String ingredientName);
+
+    long countByRestaurantIdAndArchivedFalse(UUID restaurantId);
 }

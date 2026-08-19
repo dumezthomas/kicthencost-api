@@ -5,7 +5,7 @@ import dev.dumezthomas.kitchencost.enums.CuisineType;
 
 import java.util.UUID;
 
-public record RestaurantIndexResponse(
+public record PublicRestaurantIndexResponse(
 
         UUID id,
         String name,
@@ -13,9 +13,10 @@ public record RestaurantIndexResponse(
         CuisineType cuisineType
 ) {
 
-    public static RestaurantIndexResponse fromRestaurant(Restaurant r) {
+    public static PublicRestaurantIndexResponse fromRestaurant(Restaurant r) {
 
-        return new RestaurantIndexResponse(
+        return new PublicRestaurantIndexResponse(
+                
                 r.getId(),
                 r.getName(),
                 r.getDescription(),

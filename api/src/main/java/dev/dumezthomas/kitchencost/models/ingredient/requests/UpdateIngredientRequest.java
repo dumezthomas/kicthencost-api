@@ -27,6 +27,7 @@ public record UpdateIngredientRequest(
     public Ingredient toIngredient() {
 
         return new Ingredient(
+
                 name,
                 allergens,
                 currentPriceByDefaultUnit

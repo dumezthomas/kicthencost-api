@@ -10,4 +10,6 @@ public interface RestaurantService {
     List<Restaurant> getAll();
 
     Restaurant getById(UUID restaurantId);
+
+    void update(UUID restaurantId, Restaurant restaurant);
 }

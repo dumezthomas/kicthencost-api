@@ -6,6 +6,7 @@ import dev.dumezthomas.kitchencost.models.menuitem.requests.CreateMenuItemReques
 import dev.dumezthomas.kitchencost.models.menuitem.requests.UpdateMenuItemRequest;
 import dev.dumezthomas.kitchencost.models.menuitem.responses.MenuItemIndexResponse;
 import dev.dumezthomas.kitchencost.models.menuitem.responses.MenuItemResponse;
+import dev.dumezthomas.kitchencost.services.MenuItemAnalysisService;
 import dev.dumezthomas.kitchencost.services.MenuItemService;
 import dev.dumezthomas.kitchencost.services.RestaurantService;
 import jakarta.validation.Valid;
@@ -27,6 +28,7 @@ public class MenuItemController {
     private final RestaurantService restaurantService;
 
     private final MenuItemService menuItemService;
+    private final MenuItemAnalysisService menuItemAnalysisService;
 
     private final MenuItemAssembler menuItemAssembler;
 
@@ -50,6 +52,26 @@ public class MenuItemController {
         MenuItemResponse response = menuItemAssembler.toResponse(menuItem);
 
         return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/best-food-cost")
+    public ResponseEntity<List<MenuItemIndexResponse>> getBestFoodCostItems() {
+
+        List<MenuItem> menuItems = menuItemAnalysisService.getBestFoodCostItems(getRestaurantId());
+
+        List<MenuItemIndexResponse> responses = menuItemAssembler.toIndexResponses(menuItems);
+
+        return ResponseEntity.ok(responses);
+    }
+
+    @GetMapping("/worst-food-cost")
+    public ResponseEntity<List<MenuItemIndexResponse>> getWorstFoodCostItems() {
+
+        List<MenuItem> menuItems = menuItemAnalysisService.getWorstFoodCostItems(getRestaurantId());
+
+        List<MenuItemIndexResponse> responses = menuItemAssembler.toIndexResponses(menuItems);
+
+        return ResponseEntity.ok(responses);
     }
 
     @PostMapping

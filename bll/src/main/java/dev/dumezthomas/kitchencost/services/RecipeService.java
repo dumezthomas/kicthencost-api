@@ -18,4 +18,6 @@ public interface RecipeService {
     void archive(UUID restaurantId, UUID recipeId);
 
     void restore(UUID restaurantId, UUID recipeId);
+
+    long count(UUID restaurantId);
 }
