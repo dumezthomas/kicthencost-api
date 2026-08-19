@@ -43,8 +43,22 @@ public class MenuItem extends RestaurantScoped {
 
     @PositiveOrZero
     @Column(nullable = false, precision = 8, scale = 2)
-    private BigDecimal sellingPrice;
+    private BigDecimal price;
 
     @Column(nullable = false)
     private boolean archived = false;
+
+    public MenuItem(
+            String name,
+            String description,
+            MenuItemType type,
+            Recipe recipe,
+            BigDecimal price) {
+
+        this.name = name;
+        this.description = description;
+        this.type = type;
+        this.recipe = recipe;
+        this.price = price;
+    }
 }

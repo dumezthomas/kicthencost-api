@@ -157,6 +157,78 @@ public class IngredientSeeder {
                         Set.of(),
                         Unit.KG,
                         BigDecimal.valueOf(42.00)
+                ),
+
+                new Ingredient(
+                        "Basil",
+                        IngredientCategory.HERB,
+                        Set.of(),
+                        Unit.KG,
+                        BigDecimal.valueOf(18.00)
+                ),
+
+                new Ingredient(
+                        "Parsley",
+                        IngredientCategory.HERB,
+                        Set.of(),
+                        Unit.KG,
+                        BigDecimal.valueOf(12.00)
+                ),
+
+                new Ingredient(
+                        "Lemon",
+                        IngredientCategory.FRUIT,
+                        Set.of(),
+                        Unit.KG,
+                        BigDecimal.valueOf(3.50)
+                ),
+
+                new Ingredient(
+                        "Mustard",
+                        IngredientCategory.SPICE,
+                        Set.of(Allergen.MUSTARD),
+                        Unit.KG,
+                        BigDecimal.valueOf(4.80)
+                ),
+
+                new Ingredient(
+                        "Pine Nuts",
+                        IngredientCategory.NUT,
+                        Set.of(Allergen.NUTS),
+                        Unit.KG,
+                        BigDecimal.valueOf(45.00)
+                ),
+
+                new Ingredient(
+                        "Yeast",
+                        IngredientCategory.GRAIN,
+                        Set.of(),
+                        Unit.KG,
+                        BigDecimal.valueOf(7.50)
+                ),
+
+                new Ingredient(
+                        "Pasta",
+                        IngredientCategory.GRAIN,
+                        Set.of(Allergen.GLUTEN),
+                        Unit.KG,
+                        BigDecimal.valueOf(3.20)
+                ),
+
+                new Ingredient(
+                        "Bread",
+                        IngredientCategory.GRAIN,
+                        Set.of(Allergen.GLUTEN),
+                        Unit.KG,
+                        BigDecimal.valueOf(4.20)
+                ),
+
+                new Ingredient(
+                        "Lettuce",
+                        IngredientCategory.VEGETABLE,
+                        Set.of(),
+                        Unit.KG,
+                        BigDecimal.valueOf(3.80)
                 )
         );
 

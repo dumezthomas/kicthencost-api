@@ -14,6 +14,7 @@ public class DatabaseSeeder implements CommandLineRunner {
     private final IngredientSeeder ingredientSeeder;
     private final RecipeSeeder recipeSeeder;
     private final RecipeItemSeeder recipeItemSeeder;
+    private final MenuItemSeeder menuItemSeeder;
 
     @Override
     public void run(String... args) {
@@ -24,6 +25,7 @@ public class DatabaseSeeder implements CommandLineRunner {
         ingredientSeeder.seed();
         recipeSeeder.seed();
         recipeItemSeeder.seed();
+        menuItemSeeder.seed();
 
         log.info("Database seeded.");
     }

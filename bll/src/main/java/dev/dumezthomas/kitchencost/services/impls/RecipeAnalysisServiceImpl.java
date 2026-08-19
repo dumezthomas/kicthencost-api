@@ -54,7 +54,8 @@ public class RecipeAnalysisServiceImpl implements RecipeAnalysisService {
                 .build();
     }
 
-    private RecipeItemAnalysis analyzeRecipeAsItem(Recipe recipe) {
+    @Override
+    public RecipeItemAnalysis analyzeSummary(Recipe recipe) {
 
         List<RecipeItem> items = recipeItemService.getAll(recipe.getId());
 
@@ -108,7 +109,7 @@ public class RecipeAnalysisServiceImpl implements RecipeAnalysisService {
 
         Recipe subRecipe = item.getSubRecipe();
 
-        RecipeItemAnalysis subRecipeAnalysis = analyzeRecipeAsItem(subRecipe);
+        RecipeItemAnalysis subRecipeAnalysis = analyzeSummary(subRecipe);
 
         BigDecimal quantityInYieldUnit = unitConversionService.convert(
                 item.getQuantity(),

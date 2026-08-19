@@ -18,13 +18,13 @@ public abstract class BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
+    protected UUID id;
 
     @Column(nullable = false, updatable = false)
     @CreationTimestamp
-    private Instant createdAt;
+    protected Instant createdAt;
 
     @Column(nullable = false)
     @UpdateTimestamp
-    private Instant updatedAt;
+    protected Instant updatedAt;
 }

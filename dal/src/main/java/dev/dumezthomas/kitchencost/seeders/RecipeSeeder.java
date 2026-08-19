@@ -30,37 +30,72 @@ public class RecipeSeeder {
 
                 new Recipe(
                         "Tomato Sauce",
-                        "Mix all ingredients and simmer for 30 minutes.",
+                        "Sweat the onions and garlic in olive oil, add the tomatoes, season and simmer for 30 minutes.",
                         BigDecimal.ONE,
                         Unit.KG
                 ),
 
                 new Recipe(
                         "Béchamel",
-                        "Cook the roux, gradually add the milk, then season.",
+                        "Prepare a roux with butter and flour, gradually whisk in the milk, then season with salt, pepper and nutmeg.",
                         BigDecimal.ONE,
                         Unit.KG
                 ),
 
                 new Recipe(
                         "Bolognese",
-                        "Brown the meat, add vegetables and tomato sauce, then simmer.",
+                        "Brown the beef, add the onions, stir in the tomato sauce and simmer until reduced.",
                         BigDecimal.ONE,
                         Unit.KG
                 ),
 
                 new Recipe(
-                        "Lasagna",
-                        "Layer the ingredients and bake until golden.",
+                        "Pesto",
+                        "Blend basil, parmesan, pine nuts and olive oil until smooth.",
+                        BigDecimal.valueOf(250),
+                        Unit.G
+                ),
+
+                new Recipe(
+                        "Pesto Pasta",
+                        "Cook the pasta, toss with pesto and finish with parmesan.",
+                        BigDecimal.ONE,
+                        Unit.PIECE
+                ),
+
+                new Recipe(
+                        "Garlic Butter",
+                        "Mix softened butter, garlic and parsley until evenly combined.",
+                        BigDecimal.valueOf(250),
+                        Unit.G
+                ),
+
+                new Recipe(
+                        "Garlic Bread",
+                        "Spread garlic butter on bread and toast until golden.",
                         BigDecimal.ONE,
                         Unit.PIECE
                 ),
 
                 new Recipe(
                         "Vinaigrette",
-                        "Whisk all ingredients together until emulsified.",
+                        "Whisk olive oil, lemon juice, mustard, salt and pepper until emulsified.",
                         BigDecimal.valueOf(500),
                         Unit.ML
+                ),
+
+                new Recipe(
+                        "House Salad",
+                        "Combine fresh vegetables and toss with vinaigrette.",
+                        BigDecimal.ONE,
+                        Unit.PIECE
+                ),
+
+                new Recipe(
+                        "Lasagna",
+                        "Layer pasta sheets with bolognese, béchamel and cheeses, then bake until golden.",
+                        BigDecimal.ONE,
+                        Unit.PIECE
                 )
         );
 

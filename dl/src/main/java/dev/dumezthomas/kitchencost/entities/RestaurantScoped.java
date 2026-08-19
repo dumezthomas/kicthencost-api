@@ -18,5 +18,5 @@ public abstract class RestaurantScoped extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "restaurant_id", nullable = false)
-    private Restaurant restaurant;
+    protected Restaurant restaurant;
 }

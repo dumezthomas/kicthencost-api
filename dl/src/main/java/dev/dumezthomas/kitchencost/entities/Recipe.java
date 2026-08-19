@@ -10,6 +10,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.math.BigDecimal;
+import java.util.UUID;
 
 @Entity
 @Table(
@@ -67,5 +68,10 @@ public class Recipe extends RestaurantScoped {
 
         this(name, instructions, yieldQuantity);
         this.yieldUnit = yieldUnit;
+    }
+
+    public Recipe(UUID id) {
+
+        this.id = id;
     }
 }
