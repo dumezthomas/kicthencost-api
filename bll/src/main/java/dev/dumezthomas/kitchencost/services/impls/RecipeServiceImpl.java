@@ -26,7 +26,7 @@ public class RecipeServiceImpl implements RecipeService {
     @Override
     public List<Recipe> getAll(UUID restaurantId) {
 
-        return recipeRepository.findAllByRestaurantIdAndArchivedFalse(restaurantId);
+        return recipeRepository.findAllByRestaurantId(restaurantId);
     }
 
     @Override

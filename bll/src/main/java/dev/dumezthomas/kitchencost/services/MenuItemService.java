@@ -9,6 +9,8 @@ public interface MenuItemService {
 
     List<MenuItem> getAll(UUID restaurantId);
 
+    List<MenuItem> getAllActive(UUID restaurantId);
+
     MenuItem getById(UUID restaurantId, UUID menuItemId);
 
     UUID create(UUID restaurantId, MenuItem menuItem);

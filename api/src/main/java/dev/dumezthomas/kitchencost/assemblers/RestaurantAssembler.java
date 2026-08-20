@@ -20,7 +20,7 @@ public class RestaurantAssembler {
 
     public PublicRestaurantResponse toPublicResponse(Restaurant restaurant) {
 
-        List<MenuItem> menuItems = menuItemService.getAll(restaurant.getId());
+        List<MenuItem> menuItems = menuItemService.getAllActive(restaurant.getId());
 
         List<PublicMenuItemResponse> menu = menuItemAssembler.toPublicResponses(menuItems);
 

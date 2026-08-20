@@ -29,7 +29,7 @@ public class RestaurantAnalysisServiceImpl implements RestaurantAnalysisService 
         long ingredientCount = ingredientService.count(restaurantId);
         long recipeCount = recipeService.count(restaurantId);
 
-        List<MenuItem> menuItems = menuItemService.getAll(restaurantId);
+        List<MenuItem> menuItems = menuItemService.getAllActive(restaurantId);
 
         List<MenuItemAnalysis> menuItemAnalyses = menuItems.stream()
                 .map(menuItemAnalysisService::analyze)

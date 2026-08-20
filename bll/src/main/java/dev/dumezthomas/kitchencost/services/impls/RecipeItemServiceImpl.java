@@ -74,8 +74,6 @@ public class RecipeItemServiceImpl implements RecipeItemService {
 
         if (recipe.getId().equals(subRecipeId)) {
 
-            // TODO Prevent circular references between sub-recipes (A -> B -> A)
-
             throw new InvalidOperationException("Recipe cannot contain itself.");
         }
 
@@ -83,6 +81,8 @@ public class RecipeItemServiceImpl implements RecipeItemService {
 
             throw new InvalidOperationException("The sub-recipe is already part of this recipe.");
         }
+
+        validateNoCircularReference(recipe.getId(), subRecipeId);
 
         Recipe subRecipe = recipeService.getById(restaurantId, subRecipeId);
         unitConversionService.validateCompatibility(recipeItem.getUnit(), subRecipe.getYieldUnit());
@@ -118,4 +118,33 @@ public class RecipeItemServiceImpl implements RecipeItemService {
 
         recipeItemRepository.delete(item);
     }
+
+    private void validateNoCircularReference(UUID recipeId, UUID subRecipeId) {
+
+        if (containsSubRecipe(subRecipeId, recipeId)) {
+
+            throw new InvalidOperationException("This operation would create a circular recipe reference.");
+        }
+    }
+
+    private boolean containsSubRecipe(UUID rootRecipeId, UUID searchedRecipeId) {
+
+        if (rootRecipeId.equals(searchedRecipeId)) {
+
+            return true;
+        }
+
+        List<RecipeItem> items = getAll(rootRecipeId);
+
+        for (RecipeItem item : items) {
+
+            if (!item.isIngredient() && containsSubRecipe(item.getSubRecipe().getId(), searchedRecipeId)) {
+
+                return true;
+            }
+        }
+
+        return false;
+    }
+
 }

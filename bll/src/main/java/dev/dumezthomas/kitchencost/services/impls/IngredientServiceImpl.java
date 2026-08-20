@@ -26,7 +26,7 @@ public class IngredientServiceImpl implements IngredientService {
     @Override
     public List<Ingredient> getAll(UUID restaurantId) {
 
-        return ingredientRepository.findAllByRestaurantIdAndArchivedFalse(restaurantId);
+        return ingredientRepository.findAllByRestaurantId(restaurantId);
     }
 
     @Override

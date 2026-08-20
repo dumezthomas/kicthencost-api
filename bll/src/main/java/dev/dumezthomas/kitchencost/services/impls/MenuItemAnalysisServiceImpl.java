@@ -71,7 +71,7 @@ public class MenuItemAnalysisServiceImpl implements MenuItemAnalysisService {
                 menuItem -> analyze(menuItem).foodCostPercentage()
         );
 
-        return menuItemService.getAll(restaurantId).stream()
+        return menuItemService.getAllActive(restaurantId).stream()
                 .sorted(ascending ? comparator : comparator.reversed())
                 .limit(5)
                 .toList();

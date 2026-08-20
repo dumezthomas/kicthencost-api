@@ -29,6 +29,12 @@ public class MenuItemServiceImpl implements MenuItemService {
     @Override
     public List<MenuItem> getAll(UUID restaurantId) {
 
+        return menuItemRepository.findAllByRestaurantId(restaurantId);
+    }
+
+    @Override
+    public List<MenuItem> getAllActive(UUID restaurantId) {
+
         return menuItemRepository.findAllByRestaurantIdAndArchivedFalse(restaurantId);
     }
 

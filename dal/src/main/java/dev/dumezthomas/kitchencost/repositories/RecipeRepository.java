@@ -9,7 +9,7 @@ import java.util.UUID;
 
 public interface RecipeRepository extends JpaRepository<Recipe, UUID> {
 
-    List<Recipe> findAllByRestaurantIdAndArchivedFalse(UUID restaurantId);
+    List<Recipe> findAllByRestaurantId(UUID restaurantId);
 
     Optional<Recipe> findByRestaurantIdAndId(UUID restaurantId, UUID recipeId);
 
